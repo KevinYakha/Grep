@@ -11,12 +11,22 @@ public static class Grep
         string matches = "";
         foreach (string file in files)
         {
-            using (StreamReader sr = new StreamReader(files[0]))
+            using (StreamReader sr = new StreamReader(file))
             {
-                for (string line; (line = sr.ReadLine()) != null;)
+                for ((string line, int matchCount) = ("", 0); (line = sr.ReadLine()) != null;) // multiple variable initialization using touple deconstruction
                 {
                     if (line.Contains(pattern))
-                        matches += matches == "" ? line : "\n" + line; // only add a newline when it's the first match
+                    {
+                        if (files.Length > 1)
+                        {
+                            matches += matchCount == 0 ? file + ":" + line : "\n" + file + ":" + line; // don't add a newline when it's the first match
+                        }
+                        else
+                        {
+                            matches += matchCount == 0 ? line : "\n" + line;
+                        }
+                        matchCount++;
+                    }
                 }
             }
         }
