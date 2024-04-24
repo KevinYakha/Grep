@@ -27,7 +27,7 @@ public static class Grep
             {
                 for ((string line, int lineNumber) = ("",  1); (line = sr.ReadLine()) != null; lineNumber++) // multiple variable initialization using touple deconstruction
                 {
-                    if (line.Contains(pattern))
+                    if (SearchAccordingToFlags(flagsArray, line, pattern))
                     {
                         if (files.Length > 1)
                             matches = FormatMatch(matches, file, line, lineNumber, matchCount, flagsArray);
@@ -41,6 +41,23 @@ public static class Grep
             }
         }
         return matches;
+    }
+    private static bool SearchAccordingToFlags(bool[] flags, string line, string pattern)
+    {
+        bool matchFound = false;
+        if (flags[(int)Flags.caseInsensitive] && line.Contains(pattern, StringComparison.OrdinalIgnoreCase))
+        {
+            line.ToLower();
+            pattern.ToLower();
+            matchFound = true;
+        }
+        if (flags[(int)Flags.onlyExactLineMatch] && line == pattern)
+            matchFound = true;
+        if (!flags[(int)Flags.onlyExactLineMatch] && line.Contains(pattern))
+            matchFound = true;
+        if (flags[(int)Flags.invertSearch])
+            matchFound = matchFound ? false : true;
+        return matchFound;
     }
     private static string FormatMatch(string matches, string fileName, string line, int lineNumber, int matchCount, bool[] flags)
     {
