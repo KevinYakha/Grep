@@ -34,7 +34,7 @@ public class GrepTests : IDisposable
         Assert.Equal(expected, Grep.Match(pattern, flags, files));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void One_file_one_match_print_file_names_flag()
     {
         var pattern = "Forbidden";
@@ -137,7 +137,7 @@ public class GrepTests : IDisposable
         Assert.Equal(expected, Grep.Match(pattern, flags, files));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void One_file_one_match_file_flag_takes_precedence_over_line_flag()
     {
         var pattern = "ten";
@@ -202,7 +202,7 @@ public class GrepTests : IDisposable
         Assert.Equal(expected, Grep.Match(pattern, flags, files));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Multiple_files_one_match_print_file_names_flag()
     {
         var pattern = "who";
@@ -277,7 +277,7 @@ public class GrepTests : IDisposable
         Assert.Equal(expected, Grep.Match(pattern, flags, files));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Multiple_files_several_matches_file_flag_takes_precedence_over_line_number_flag()
     {
         var pattern = "who";
